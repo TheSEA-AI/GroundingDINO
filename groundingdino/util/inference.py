@@ -35,16 +35,7 @@ def load_model(model_config_path: str, model_checkpoint_path: str, device: str =
     model.eval()
     return model
 
-def adjust_gamma(image, gamma=0.2):
-	# build a lookup table mapping the pixel values [0, 255] to
-	# their adjusted gamma values
-	invGamma = 1.0 / gamma
-	table = np.array([((i / 255.0) ** invGamma) * 255
-		for i in np.arange(0, 256)]).astype("uint8")
-	# apply gamma correction using the lookup table
-	return cv2.LUT(image, table)
-
-def load_image(image_path, image_dim = 1024, is_product_image = False) -> Tuple[np.array, torch.Tensor]:
+def load_image(image_path, image_dim = 1024) -> Tuple[np.array, torch.Tensor]:
     transform = T.Compose(
         [
             #T.RandomResize([image_dim], max_size=1333),
@@ -55,11 +46,6 @@ def load_image(image_path, image_dim = 1024, is_product_image = False) -> Tuple[
     image_source = Image.open(image_path).convert("RGB")
     image_source = image_source.resize((image_dim, image_dim), Image.LANCZOS)
     image = np.asarray(image_source)
-    
-    if is_product_image:
-        image = adjust_gamma(image)
-        image_source = Image.fromarray(image)
-
     image_transformed, _ = transform(image_source, None)
     return image, image_transformed
 
