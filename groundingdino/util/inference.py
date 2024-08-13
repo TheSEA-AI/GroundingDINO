@@ -44,7 +44,7 @@ def adjust_gamma(image, gamma=0.2):
 	# apply gamma correction using the lookup table
 	return cv2.LUT(image, table)
 
-def load_image(image_path, is_product_image = False, image_dim = 1024) -> Tuple[np.array, torch.Tensor]:
+def load_image(image_path, image_dim = 1024, is_product_image = False) -> Tuple[np.array, torch.Tensor]:
     transform = T.Compose(
         [
             #T.RandomResize([image_dim], max_size=1333),
