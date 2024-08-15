@@ -60,8 +60,8 @@ def predict(
 ) -> Tuple[torch.Tensor, torch.Tensor, List[str]]:
     caption = preprocess_caption(caption=caption)
 
-    model = model.to(device)
-    image = image.to(device)
+    #model = model.to(device)
+    image = image.to(model.device)
 
     with torch.no_grad():
         outputs = model(image[None], captions=[caption])
