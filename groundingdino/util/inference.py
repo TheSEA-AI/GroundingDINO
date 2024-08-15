@@ -61,7 +61,7 @@ def predict(
     caption = preprocess_caption(caption=caption)
 
     #model = model.to(device)
-    image = image.to(model.device)
+    image = image.to(device)
 
     with torch.no_grad():
         outputs = model(image[None], captions=[caption])
