@@ -66,12 +66,18 @@ def predict(
     with torch.no_grad():
         outputs = model(image[None], captions=[caption])
 
+    print(f'outputs={outputs.size()}')
     prediction_logits = outputs["pred_logits"].cpu().sigmoid()[0]  # prediction_logits.shape = (nq, 256)
+    print(f'prediction_logits={prediction_logits.size()}')
     prediction_boxes = outputs["pred_boxes"].cpu()[0]  # prediction_boxes.shape = (nq, 4)
+    print(f'prediction_boxes={prediction_boxes.size()}')
 
     mask = prediction_logits.max(dim=1)[0] > box_threshold
+    print(f'mask={mask.size()}')
     logits = prediction_logits[mask]  # logits.shape = (n, 256)
+    print(f'logits={logits.size()}')
     boxes = prediction_boxes[mask]  # boxes.shape = (n, 4)
+    print(f'boxes={boxes.size()}')
 
     tokenizer = model.tokenizer
     tokenized = tokenizer(caption)
