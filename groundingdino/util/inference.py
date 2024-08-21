@@ -68,9 +68,9 @@ def predict(
 
     print(f'outputs={outputs}')
     prediction_logits = outputs["pred_logits"].cpu().sigmoid()[0]  # prediction_logits.shape = (nq, 256)
-    print(f'prediction_logits={prediction_logits.size()}')
+    print(f'prediction_logits={prediction_logits}')
     prediction_boxes = outputs["pred_boxes"].cpu()[0]  # prediction_boxes.shape = (nq, 4)
-    print(f'prediction_boxes={prediction_boxes.size()}')
+    print(f'prediction_boxes={prediction_boxes}')
 
     mask = prediction_logits.max(dim=1)[0] > box_threshold
     print(f'mask={mask.size()}')
