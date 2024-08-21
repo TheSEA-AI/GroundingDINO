@@ -66,7 +66,7 @@ def predict(
     with torch.no_grad():
         outputs = model(image[None], captions=[caption])
 
-    print(f'outputs={outputs.size()}')
+    print(f'outputs={outputs}')
     prediction_logits = outputs["pred_logits"].cpu().sigmoid()[0]  # prediction_logits.shape = (nq, 256)
     print(f'prediction_logits={prediction_logits.size()}')
     prediction_boxes = outputs["pred_boxes"].cpu()[0]  # prediction_boxes.shape = (nq, 4)
