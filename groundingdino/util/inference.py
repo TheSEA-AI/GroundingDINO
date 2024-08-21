@@ -59,6 +59,7 @@ def predict(
         remove_combined: bool = False
 ) -> Tuple[torch.Tensor, torch.Tensor, List[str]]:
     caption = preprocess_caption(caption=caption)
+    print(f'caption={caption}')
 
     #model = model.to(device)
     image = image.to(device)
@@ -73,9 +74,9 @@ def predict(
     print(f'prediction_boxes={prediction_boxes}')
 
     mask = prediction_logits.max(dim=1)[0] > box_threshold
-    print(f'mask={mask.size()}')
+    print(f'mask={mask}')
     logits = prediction_logits[mask]  # logits.shape = (n, 256)
-    print(f'logits={logits.size()}')
+    print(f'logits={logits}')
     boxes = prediction_boxes[mask]  # boxes.shape = (n, 4)
     print(f'boxes={boxes.size()}')
 
