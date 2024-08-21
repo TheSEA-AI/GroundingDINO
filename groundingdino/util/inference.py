@@ -59,7 +59,7 @@ def predict(
         remove_combined: bool = False
 ) -> Tuple[torch.Tensor, torch.Tensor, List[str]]:
     caption = preprocess_caption(caption=caption)
-    print(f'caption={caption}')
+    #print(f'caption={caption}')
 
     #model = model.to(device)
     image = image.to(device)
